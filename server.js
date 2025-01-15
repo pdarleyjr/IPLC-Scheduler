@@ -10,7 +10,18 @@ app.use(express.json());
 
 // Therapist routes
 app.get('/therapists', async (req, res) => {
-  const therapists = await prisma.therapist.findMany();
+  const therapists = await prisma.therapist.findMany({
+    include: {
+      clients: true,
+      services: true,
+      appointments: {
+        include: {
+          client: true,
+          service: true
+        }
+      }
+    }
+  });
   res.json(therapists);
 });
 
@@ -24,7 +35,17 @@ app.post('/therapists', async (req, res) => {
 
 // Client routes
 app.get('/clients', async (req, res) => {
-  const clients = await prisma.client.findMany();
+  const clients = await prisma.client.findMany({
+    include: {
+      therapist: true,
+      appointments: {
+        include: {
+          service: true,
+          therapist: true
+        }
+      }
+    }
+  });
   res.json(clients);
 });
 
@@ -68,6 +89,22 @@ app.post('/appointments', async (req, res) => {
     data: { date, duration, clientId, serviceId, therapistId }
   });
   res.json(appointment);
+});
+
+app.post('/appointments/recurring', async (req, res) => {
+  const { date, duration, clientId, serviceId, therapistId, recurrence } = req.body;
+  const recurringEvents = [];
+  for (let i = 0; i < recurrence; i++) {
+    recurringEvents.push({
+      date: new Date(new Date(date).setDate(new Date(date).getDate() + i * 7)),
+      duration,
+      clientId,
+      serviceId,
+      therapistId
+    });
+  }
+  const result = await prisma.appointment.createMany({ data: recurringEvents });
+  res.json(result);
 });
 
 const PORT = process.env.PORT || 5000;
