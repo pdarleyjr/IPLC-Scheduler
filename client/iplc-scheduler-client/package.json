@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -17,11 +18,13 @@
     "@fullcalendar/timegrid": "^6.1.15",
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
+    "@types/react-router-dom": "^5.3.3",
     "ajv": "^8.12.0",
     "axios": "^1.7.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "^3.0.1",
+    "react-router-dom": "^7.1.1",
+    "react-scripts": "^5.0.1",
     "typescript": "^5.7.3"
   },
   "browserslist": {

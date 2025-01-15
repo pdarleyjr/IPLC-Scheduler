@@ -1,29 +1,12 @@
-# IPLC Scheduler Development Log
+# [Date] UI Updates
 
-## 2024-01-15
+## Added
+- Tailwind CSS configuration with IPLC branding colors
+- Global styles in index.css with custom utility classes
+- Sidebar component with navigation links
+- Header component with IPLC logo and navigation icons
+- Layout component combining Sidebar and Header
 
-### Backend Setup
-- [x] Initialize Git repository
-- [x] Set up Node.js project with Express
-- [x] Install required dependencies (express, cors, prisma, etc.)
-- [x] Configure Prisma with SQLite database
-- [x] Define database schema with models:
-  - Therapist
-  - Client
-  - Service
-  - Appointment
-- [x] Generate Prisma client
-- [x] Create initial database migration
-- [x] Implement basic CRUD API endpoints
-- [x] Start backend server on port 5000
-- [x] Clean database and reseed with initial data
-
-## Next Steps
-- [ ] Create React frontend application
-- [ ] Set up React Big Calendar integration
-- [ ] Implement frontend-backend connection
-- [ ] Add authentication system
-- [ ] Implement input validation
-- [ ] Add error handling
-- [ ] Create test cases
-- [ ] Implement CI/CD pipeline
+## Updated
+- Project styling to use Tailwind CSS
+- Application structure to use new layout components
