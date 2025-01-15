@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Therapist {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  phone     String?
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  clients   Client[]
+  services  Service[]
+  appointments Appointment[]
+}
+
+model Client {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String   @unique
+  phone      String?
+  therapist  Therapist? @relation(fields: [therapistId], references: [id])
+  therapistId Int?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  appointments Appointment[]
+}
+
+model Service {
+  id         Int      @id @default(autoincrement())
+  name       String
+  duration   Int
+  price      Float
+  therapist  Therapist @relation(fields: [therapistId], references: [id])
+  therapistId Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  appointments Appointment[]
+}
+
+model Appointment {
+  id        Int      @id @default(autoincrement())
+  date      DateTime
+  duration  Int
+  client    Client   @relation(fields: [clientId], references: [id])
+  clientId  Int
+  service   Service  @relation(fields: [serviceId], references: [id])
+  serviceId Int
+  therapist Therapist @relation(fields: [therapistId], references: [id])
+  therapistId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
